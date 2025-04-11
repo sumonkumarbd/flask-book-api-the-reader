@@ -1,23 +1,21 @@
-from flask import Flask,jsonify
+from flask import Flask, jsonify
 
 app = Flask(__name__)
+
 @app.route('/')
 def home():
-    return "Hello From Flask On Render"
+    return "Hello from Flask on Render!"
 
-@app.route('/books',methode=['GET'])
+@app.route('/books', methods=['GET'])
 def get_books():
-    # Dummy data
-    books = [
+    return jsonify([
         {
-            "book_name": "Sample Book",
-            "author_name": "Author 1",
-            "file_name": "https://yourdomain.com/uploads/book.pdf",
-            "cover_photo": "https://yourdomain.com/uploads/cover.jpg"
+            "book_name": "The Alchemist",
+            "author_name": "Paulo Coelho",
+            "file_name": "https://example.com/book.pdf",
+            "cover_photo": "https://example.com/cover.jpg"
         }
-    ]
-    return jsonify(books)
-
+    ])
 
 if __name__ == "__main__":
-    app.run()
+    app.run(debug=True)
