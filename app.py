@@ -1,6 +1,7 @@
 from flask import Flask, request, jsonify
 from flask_sqlalchemy import SQLAlchemy
 from werkzeug.utils import secure_filename
+from flask import Flask, render_template
 import os
 
 # Initialize Flask app
@@ -30,6 +31,10 @@ class PDF(db.Model):
     def __repr__(self):
         return f"PDF({self.title}, {self.author})"
 
+
+@app.route('/')
+def home():
+    return render_template('index.html')
 
 # Route for uploading PDF and metadata
 @app.route('/upload', methods=['POST'])
