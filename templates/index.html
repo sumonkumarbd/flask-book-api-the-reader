@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Welcome to The Reader Android App PDF Upload and Management System. Easily upload, manage, and retrieve your PDFs and associated metadata.">
+    <title>The Reader - API Endpoints</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f7fb;
+            color: #333;
+        }
+
+        header {
+            background-color: #007bff;
+            color: #fff;
+            padding: 20px 0;
+            text-align: center;
+        }
+
+        header h1 {
+            margin: 0;
+        }
+
+        section {
+            text-align: center;
+            margin: 50px 0;
+            padding: 0 20px;
+        }
+
+        section h2 {
+            font-size: 2rem;
+            margin-bottom: 20px;
+        }
+
+        section p {
+            font-size: 1.2rem;
+            line-height: 1.6;
+        }
+
+        footer {
+            background-color: #333;
+            color: #fff;
+            padding: 10px 0;
+            text-align: center;
+        }
+
+        .endpoints-container {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            margin-top: 30px;
+        }
+
+        .endpoint-box {
+            background-color: #fff;
+            border-radius: 8px;
+            padding: 20px;
+            width: 300px;
+            margin: 15px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        .endpoint-box h3 {
+            font-size: 1.4rem;
+            margin-bottom: 15px;
+            color: #007bff;
+        }
+
+        .endpoint-box p {
+            font-size: 1.1rem;
+            line-height: 1.5;
+            margin: 0;
+        }
+
+        .endpoint-box code {
+            display: block;
+            background-color: #f4f7fb;
+            padding: 10px;
+            border-radius: 5px;
+            font-size: 1rem;
+            margin-top: 10px;
+            word-wrap: break-word;
+            font-family: "Courier New", Courier, monospace;
+        }
+
+        .social-links {
+            margin-top: 20px;
+        }
+
+        .social-links a {
+            color: #0a70e4;
+            margin: 0 15px;
+            text-decoration: none;
+        }
+
+        .social-links a:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <h1>The Reader - API Endpoints</h1>
+        <p>Access the API endpoints for managing PDFs and metadata</p>
+    </header>
+
+    <section>
+        <h2>API Endpoints for The Reader Android App</h2>
+        <p>Below is the list of available endpoints to interact with The Reader app's backend for PDF management:</p>
+    </section>
+
+    <section class="endpoints-container">
+        <!-- Endpoint 1: Read PDFs -->
+        <div class="endpoint-box">
+            <h3>READ - Get All PDFs</h3>
+            <p>Fetch a list of all PDFs uploaded in the system.</p>
+            <code>
+                GET https://flask-book-api-the-reader.onrender.com/pdfs
+            </code>
+        </div>
+
+        <!-- Endpoint 2: Upload PDF -->
+        <div class="endpoint-box">
+            <h3>UPLOAD - Upload PDF</h3>
+            <p>Upload a new PDF along with metadata such as title, author, category, and thumbnail image.</p>
+            <code>
+                POST https://flask-book-api-the-reader.onrender.com/upload
+            </code>
+        </div>
+
+        <!-- Endpoint 3: Delete PDF -->
+        <div class="endpoint-box">
+            <h3>DELETE - Delete PDF</h3>
+            <p>Delete a PDF and its associated metadata by its ID.</p>
+            <code>
+                DELETE https://flask-book-api-the-reader.onrender.com/delete/{id}
+            </code>
+        </div>
+
+        <!-- Endpoint 4: Get PDF Metadata -->
+        <div class="endpoint-box">
+            <h3>GET - Get PDF Metadata</h3>
+            <p>Retrieve the metadata of a specific PDF by its ID.</p>
+            <code>
+                GET https://flask-book-api-the-reader.onrender.com/pdf/{id}
+            </code>
+        </div>
+
+        <!-- Endpoint 5: Update PDF Metadata -->
+        <div class="endpoint-box">
+            <h3>UPDATE - Update PDF Metadata</h3>
+            <p>Update the metadata (title, author, category, etc.) of an existing PDF.</p>
+            <code>
+                PUT https://flask-book-api-the-reader.onrender.com/update/{id}
+            </code>
+        </div>
+
+        <!-- Endpoint 6: Search PDFs -->
+        <div class="endpoint-box">
+            <h3>SEARCH - Search PDFs</h3>
+            <p>Search for PDFs by keywords in their metadata.</p>
+            <code>
+                GET https://flask-book-api-the-reader.onrender.com/search?q={query}
+            </code>
+        </div>
+    </section>
+
+    <section>
+        <h2>Developer Information</h2>
+        <p>Created for <strong>The Reader Android App</strong> by <strong>Sumon Kumar</strong></p>
+        <p>Follow the developer:</p>
+        <div class="social-links">
+            <a href="https://www.linkedin.com/in/sumonkmr/" target="_blank">LinkedIn</a>
+        </div>
+    </section>
+
+    <footer>
+        <p>&copy; 2025 The Reader - PDF Management System. All Rights Reserved.</p>
+    </footer>
+
+</body>
+</html>

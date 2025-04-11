@@ -110,38 +110,150 @@ def get_pdfs():
     return jsonify(pdf_list)
 
 
-@app.route('/delete/<int:pdf_id>', methods=['DELETE'])
-def delete_pdf(pdf_id):
-    pdf = PDF.query.get(pdf_id)
+@app.route('/delete/<int:id>', methods=['DELETE'])
+def delete_pdf_by_id(id):
+    pdf = PDF.query.get(id)
 
     if not pdf:
         return jsonify({"error": "PDF not found"}), 404
 
-    # Build full paths
-    pdf_folder = os.path.join(app.config['UPLOAD_FOLDER'], pdf.title)
-    pdf_path = os.path.join(pdf_folder, pdf.file_name)
-    thumbnail_path = pdf.thumbnail if pdf.thumbnail else ""
+    # Folder path using the title
+    folder_path = os.path.join(app.config['UPLOAD_FOLDER'], pdf.title)
 
     # Delete PDF file
+    pdf_path = os.path.join(folder_path, pdf.file_name)
     if os.path.exists(pdf_path):
         os.remove(pdf_path)
 
-    # Delete thumbnail
-    if thumbnail_path and os.path.exists(thumbnail_path):
-        os.remove(thumbnail_path)
+    # Delete thumbnail if it exists
+    if pdf.thumbnail:
+        thumbnail_path = os.path.join(folder_path, os.path.basename(pdf.thumbnail))
+        if os.path.exists(thumbnail_path):
+            os.remove(thumbnail_path)
 
-    # Remove folder if empty
-    if os.path.exists(pdf_folder) and not os.listdir(pdf_folder):
-        os.rmdir(pdf_folder)
+    # Delete the folder if it's now empty
+    if os.path.exists(folder_path) and not os.listdir(folder_path):
+        os.rmdir(folder_path)
 
-    # Delete DB entry
+    # Delete DB record
     db.session.delete(pdf)
     db.session.commit()
 
-    return jsonify({"message": "PDF deleted successfully"}), 200
+    return jsonify({"message": f"PDF with ID {id} deleted successfully."}), 200
+
+
+@app.route('/update/<int:id>', methods=['PUT'])
+def update_pdf(id):
+    pdf = PDF.query.get(id)
+    if not pdf:
+        return jsonify({'error': 'PDF not found'}), 404
+
+    data = request.get_json()
+    if not data:
+        return jsonify({'error': 'No data provided'}), 400
+
+    pdf.title = data.get('title', pdf.title)
+    pdf.author = data.get('author', pdf.author)
+    pdf.category = data.get('category', pdf.category)
+
+    db.session.commit()
+
+    return jsonify({'message': 'PDF updated successfully', 'pdf': {
+        'id': pdf.id,
+        'title': pdf.title,
+        'author': pdf.author,
+        'category': pdf.category,
+        'file_name': pdf.file_name,
+        'thumbnail': pdf.thumbnail
+    }})
 
 
 
+# Route to search PDFs by title, author, or category
+@app.route('/search', methods=['GET'])
+def search_pdfs():
+    query = request.args.get('q')
+    pdfs = PDF.query.filter(
+        (PDF.title.like(f'%{query}%')) | 
+        (PDF.author.like(f'%{query}%')) | 
+        (PDF.category.like(f'%{query}%'))
+    ).all()
+
+    if not pdfs:
+        return jsonify({'message': 'No results found!'}), 404
+
+    output = []
+    for pdf in pdfs:
+        pdf_data = {
+            'id': pdf.id,
+            'title': pdf.title,
+            'author': pdf.author,
+            'category': pdf.category,
+            'file_name': pdf.file_name,
+            'thumbnail': pdf.thumbnail
+        }
+        output.append(pdf_data)
+
+    return jsonify(output)
+
+# Route to get PDFs by category
+@app.route('/category/<category_name>', methods=['GET'])
+def get_pdfs_by_category(category_name):
+    pdfs = PDF.query.filter_by(category=category_name).all()
+    
+    if not pdfs:
+        return jsonify({'message': 'No PDFs found in this category!'}), 404
+
+    output = []
+    for pdf in pdfs:
+        pdf_data = {
+            'id': pdf.id,
+            'title': pdf.title,
+            'author': pdf.author,
+            'category': pdf.category,
+            'file_name': pdf.file_name,
+            'thumbnail': pdf.thumbnail
+        }
+        output.append(pdf_data)
+
+    return jsonify(output)
+
+# Route to get PDFs by author
+@app.route('/author/<author_name>', methods=['GET'])
+def get_pdfs_by_author(author_name):
+    pdfs = PDF.query.filter_by(author=author_name).all()
+    
+    if not pdfs:
+        return jsonify({'message': 'No PDFs found by this author!'}), 404
+
+    output = []
+    for pdf in pdfs:
+        pdf_data = {
+            'id': pdf.id,
+            'title': pdf.title,
+            'author': pdf.author,
+            'category': pdf.category,
+            'file_name': pdf.file_name,
+            'thumbnail': pdf.thumbnail
+        }
+        output.append(pdf_data)
+
+    return jsonify(output)
+
+# Route to get PDF statistics
+@app.route('/stats', methods=['GET'])
+def get_pdf_stats():
+    total_pdfs = PDF.query.count()
+    output = {
+        'total_pdfs': total_pdfs
+    }
+    return jsonify(output)
+
+# Initialize the database
+if __name__ == '__main__':
+    with app.app_context():
+        db.create_all()  # Creates the database tables if they don't exist
+    app.run(debug=True)
 
 # Run the Flask app
 if __name__ == '__main__':
