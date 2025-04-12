@@ -246,7 +246,6 @@ def update_pdf(pdf_id):
             return jsonify({'error': 'No data provided'}), 400
 
         # Update fields that are provided
-        # Update fields that are provided
         if 'title' in data:
             pdf.title = data['title']
         if 'author' in data:
