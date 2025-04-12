@@ -246,6 +246,7 @@ def update_pdf(pdf_id):
             return jsonify({'error': 'No data provided'}), 400
 
         # Update fields that are provided
+        # Update fields that are provided
         if 'title' in data:
             pdf.title = data['title']
         if 'author' in data:
@@ -254,6 +255,15 @@ def update_pdf(pdf_id):
             pdf.category = data['category']
         if 'description' in data:
             pdf.description = data['description']
+        if 'download_count' in data:
+            pdf.download_count = data['download_count']
+        if 'thumbnail' in data:
+            pdf.thumbnail = data['thumbnail']
+        if 'file_name' in data:
+            pdf.file_name = data['file_name']
+        if 'upload_date' in data:
+            pdf.upload_date = data['upload_date']
+
 
         db.session.commit()
         logger.info(f"PDF {pdf_id} updated successfully")
