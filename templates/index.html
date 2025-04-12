@@ -3,185 +3,1344 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Welcome to The Reader Android App PDF Upload and Management System. Easily upload, manage, and retrieve your PDFs and associated metadata.">
-    <title>The Reader - API Endpoints</title>
+    <title>The Reader API | PDF Management System</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css">
     <style>
-        body {
-            font-family: Arial, sans-serif;
-            margin: 0;
-            padding: 0;
-            background-color: #f4f7fb;
-            color: #333;
-        }
+        :root {
+    --primary: #D6640A;
+    --secondary: #d18e2a;
+    --dark: #1d3557;
+    --light: #f8f9fa;
+    --success: #4cc9f0;
+    --info: #4895ef;
+    --warning: #f72585;
+    --danger: #e63946;
+    --gray: #6c757d;
+    --gray-light: #f1f3f5;
+}
 
-        header {
-            background-color: #007bff;
-            color: #fff;
-            padding: 20px 0;
-            text-align: center;
-        }
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
 
-        header h1 {
-            margin: 0;
-        }
+body {
+    background-color: var(--light);
+    color: var(--dark);
+    line-height: 1.6;
+    overflow-x: hidden;
+    scroll-behavior: smooth;
+}
 
-        section {
-            text-align: center;
-            margin: 50px 0;
-            padding: 0 20px;
-        }
+.container {
+    width: 100%;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
+}
 
-        section h2 {
-            font-size: 2rem;
-            margin-bottom: 20px;
-        }
+/* Header and Navigation */
+.navbar {
+    background-color: white;
+    box-shadow: 0 2px 15px rgba(0, 0, 0, 0.1);
+    padding: 15px 0;
+    position: fixed;
+    width: 100%;
+    top: 0;
+    z-index: 1000;
+}
 
-        section p {
-            font-size: 1.2rem;
-            line-height: 1.6;
-        }
+.nav-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
 
-        footer {
-            background-color: #333;
-            color: #fff;
-            padding: 10px 0;
-            text-align: center;
-        }
+.logo {
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: var(--primary);
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
 
-        .endpoints-container {
-            display: flex;
-            flex-wrap: wrap;
-            justify-content: center;
-            margin-top: 30px;
-        }
+.logo i {
+    font-size: 1.8rem;
+}
 
-        .endpoint-box {
-            background-color: #fff;
-            border-radius: 8px;
-            padding: 20px;
-            width: 300px;
-            margin: 15px;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-        }
+.nav-links {
+    display: flex;
+    gap: 30px;
+}
 
-        .endpoint-box h3 {
-            font-size: 1.4rem;
-            margin-bottom: 15px;
-            color: #007bff;
-        }
+.nav-links a {
+    text-decoration: none;
+    color: var(--dark);
+    font-weight: 500;
+    transition: all 0.3s ease;
+    padding: 8px 5px;
+    position: relative;
+}
 
-        .endpoint-box p {
-            font-size: 1.1rem;
-            line-height: 1.5;
-            margin: 0;
-        }
+.nav-links a::after {
+    content: '';
+    position: absolute;
+    width: 0;
+    height: 2px;
+    background-color: var(--primary);
+    left: 0;
+    bottom: 0;
+    transition: width 0.3s ease;
+}
 
-        .endpoint-box code {
-            display: block;
-            background-color: #f4f7fb;
-            padding: 10px;
-            border-radius: 5px;
-            font-size: 1rem;
-            margin-top: 10px;
-            word-wrap: break-word;
-            font-family: "Courier New", Courier, monospace;
-        }
+.nav-links a:hover::after {
+    width: 100%;
+}
 
-        .social-links {
-            margin-top: 20px;
-        }
+.get-started {
+    background-color: var(--primary);
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
 
-        .social-links a {
-            color: #0a70e4;
-            margin: 0 15px;
-            text-decoration: none;
-        }
+.get-started:hover {
+    background-color: var(--secondary);
+    transform: translateY(-2px);
+}
 
-        .social-links a:hover {
-            text-decoration: underline;
-        }
+/* Hero Section */
+.hero {
+    padding: 160px 0 100px;
+    background: linear-gradient(135deg, var(--primary),var(--secondary) 100%), url('/api/placeholder/1920/1080') center/cover no-repeat;
+    color: white;
+    text-align: center;
+    position: relative;
+}
+
+.hero-content {
+    max-width: 800px;
+    margin: 0 auto;
+    z-index: 2;
+    position: relative;
+}
+
+.hero h1 {
+    font-size: 3.5rem;
+    font-weight: 700;
+    margin-bottom: 20px;
+    line-height: 1.2;
+    animation: fadeInUp 1s ease;
+}
+
+.hero p {
+    font-size: 1.2rem;
+    margin-bottom: 40px;
+    opacity: 0.9;
+    animation: fadeInUp 1s ease 0.2s both;
+}
+
+.hero-buttons {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    animation: fadeInUp 1s ease 0.4s both;
+}
+
+/* Common Button Styles */
+.btn {
+    display: inline-block;
+    padding: 12px 25px;
+    border-radius: 5px;
+    text-decoration: none;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    cursor: pointer;
+}
+
+.btn-primary {
+    background-color: white;
+    color: var(--primary);
+}
+
+.btn-primary:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+}
+
+.btn-outline {
+    border: 2px solid white;
+    color: white;
+}
+
+.btn-outline:hover {
+    background-color: white;
+    color: var(--primary);
+    transform: translateY(-3px);
+}
+
+/* Wave Separator */
+.wave-separator {
+    height: 150px;
+    width: 100%;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1440 320'%3E%3Cpath fill='%23ffffff' fill-opacity='1' d='M0,160L48,154.7C96,149,192,139,288,154.7C384,171,480,213,576,218.7C672,224,768,192,864,181.3C960,171,1056,181,1152,192C1248,203,1344,213,1392,218.7L1440,224L1440,320L1392,320C1344,320,1248,320,1152,320C1056,320,960,320,864,320C768,320,672,320,576,320C480,320,384,320,288,320C192,320,96,320,48,320L0,320Z'%3E%3C/path%3E%3C/svg%3E");
+    background-size: cover;
+    margin-top: -100px;
+    position: relative;
+    z-index: 1;
+}
+
+/* Features Section */
+.features {
+    padding: 80px 0;
+    background-color: white;
+}
+
+.section-title {
+    text-align: center;
+    margin-bottom: 60px;
+}
+
+.section-title h2 {
+    font-size: 2.5rem;
+    color: var(--dark);
+    margin-bottom: 20px;
+    position: relative;
+    display: inline-block;
+}
+
+.section-title h2::after {
+    content: "";
+    position: absolute;
+    width: 60px;
+    height: 4px;
+    background-color: var(--primary);
+    bottom: -10px;
+    left: 50%;
+    transform: translateX(-50%);
+    border-radius: 2px;
+}
+
+.section-title p {
+    font-size: 1.1rem;
+    color: var(--gray);
+    max-width: 700px;
+    margin: 0 auto;
+}
+
+.features-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 30px;
+}
+
+.feature-card {
+    background-color: white;
+    border-radius: 10px;
+    padding: 30px;
+    text-align: center;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+    transition: all 0.3s ease;
+    border: 1px solid #eee;
+}
+
+.feature-card:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 15px 40px rgba(0, 0, 0, 0.1);
+}
+
+.feature-icon {
+    width: 70px;
+    height: 70px;
+    margin: 0 auto 20px;
+    background-color: var(--light);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.8rem;
+    color: var(--primary);
+}
+
+.feature-card h3 {
+    margin-bottom: 15px;
+    font-size: 1.4rem;
+}
+
+.feature-card p {
+    color: var(--gray);
+    font-size: 1rem;
+}
+
+/* API Endpoints Section */
+.endpoints {
+    padding: 100px 0;
+    background-color: var(--gray-light);
+}
+
+.endpoint-tabs {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-bottom: 40px;
+}
+
+.endpoint-tab {
+    padding: 10px 20px;
+    background-color: white;
+    border: 1px solid #eee;
+    border-radius: 5px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.endpoint-tab.active {
+    background-color: var(--primary);
+    color: white;
+    border-color: var(--primary);
+}
+
+.endpoint-tab:hover:not(.active) {
+    background-color: #f5f5f5;
+}
+
+.endpoint-content {
+    background-color: white;
+    border-radius: 10px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+    overflow: hidden;
+}
+
+.endpoint-item {
+    display: none;
+    padding: 30px;
+}
+
+.endpoint-item.active {
+    display: block;
+    animation: fadeIn 0.5s ease;
+}
+
+.endpoint-header {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    margin-bottom: 20px;
+}
+
+.method {
+    padding: 5px 15px;
+    border-radius: 5px;
+    font-size: 0.9rem;
+    font-weight: bold;
+    text-transform: uppercase;
+}
+
+.get {
+    background-color: rgba(97, 218, 251, 0.2);
+    color: #09c;
+}
+
+.post {
+    background-color: rgba(73, 204, 144, 0.2);
+    color: #3c9;
+}
+
+.put {
+    background-color: rgba(252, 192, 68, 0.2);
+    color: #f90;
+}
+
+.delete {
+    background-color: rgba(247, 82, 95, 0.2);
+    color: #f55;
+}
+
+.endpoint-title {
+    font-size: 1.5rem;
+    font-weight: 600;
+}
+
+.endpoint-description {
+    margin-bottom: 20px;
+    color: var(--gray);
+}
+
+.endpoint-url {
+    background-color: var(--dark);
+    color: white;
+    padding: 15px;
+    border-radius: 5px;
+    font-family: 'Courier New', monospace;
+    margin-bottom: 20px;
+    position: relative;
+    overflow: hidden;
+}
+
+.copy-btn {
+    position: absolute;
+    top: 8px;
+    right: 8px;
+    background-color: rgba(255, 255, 255, 0.2);
+    border: none;
+    color: white;
+    padding: 5px 10px;
+    border-radius: 3px;
+    cursor: pointer;
+    font-size: 0.8rem;
+}
+
+.copy-btn:hover {
+    background-color: rgba(255, 255, 255, 0.3);
+}
+
+.parameter-section h4, .response-section h4 {
+    margin-bottom: 15px;
+    font-size: 1.2rem;
+}
+
+.parameter-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 20px;
+}
+
+.parameter-table th, .parameter-table td {
+    text-align: left;
+    padding: 12px;
+    border-bottom: 1px solid var(--gray-light);
+}
+
+.parameter-table th {
+    background-color: var(--gray-light);
+    font-weight: 600;
+}
+
+.parameter-table tr:last-child td {
+    border-bottom: none;
+}
+
+.code-block {
+    background-color: #2d2d2d;
+    color: #f8f8f2;
+    padding: 15px;
+    border-radius: 5px;
+    font-family: 'Courier New', monospace;
+    overflow-x: auto;
+    margin-bottom: 20px;
+}
+
+/* Statistics Section */
+.stats {
+    padding: 80px 0;
+    background-color: white;
+    text-align: center;
+}
+
+.stats-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 30px;
+    margin-top: 50px;
+}
+
+.stat-item {
+    padding: 20px;
+}
+
+.stat-number {
+    font-size: 3rem;
+    font-weight: 700;
+    color: var(--primary);
+    margin-bottom: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.stat-number i {
+    font-size: 2rem;
+    margin-right: 10px;
+}
+
+.stat-label {
+    font-size: 1.1rem;
+    color: var(--gray);
+}
+
+/* Developer Section */
+.developer {
+    padding: 10px 0 0 0;
+    background-color: var(--gray-light);
+}
+
+.developer-card {
+    max-width: 1200px;
+    margin: 0 auto;
+    background-color: white;
+    border-radius: 10px;
+    overflow: hidden;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+}
+
+.developer-header {
+    padding: 40px 20px;
+    background: linear-gradient(135deg, var(--light) 0%, var(--gray-light) 100%);
+    color: var(--dark);
+    position: relative;
+}
+
+.developer-img {
+    width: 220px;
+    height: 220px;
+    border-radius: 50%;
+    margin: 0 auto 20px;
+    border: 5px solid white;
+    overflow: hidden;
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+}
+
+.developer-img img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.developer-header h3 {
+    font-size: 1.8rem;
+    margin-bottom: 5px;
+}
+
+.developer-header p {
+    opacity: 0.9;
+}
+
+.developer-body {
+    padding: 40px;
+}
+
+.dev-bio {
+    margin-bottom: 30px;
+    color: var(--gray);
+    max-width: 600px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.social-links {
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+}
+
+.social-link {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 40px;
+    height: 40px;
+    background-color: #f8f9fa;
+    border-radius: 50%;
+    color: var(--dark);
+    font-size: 1.2rem;
+    transition: all 0.3s ease;
+    text-decoration: none;
+}
+
+.social-link:hover {
+    background-color: var(--primary);
+    color: white;
+    transform: translateY(-3px);
+}
+
+/* Call to Action */
+.cta {
+    padding: 100px 0;
+    background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+    color: white;
+    text-align: center;
+}
+
+.cta h2 {
+    font-size: 2.5rem;
+    margin-bottom: 20px;
+}
+
+.cta p {
+    font-size: 1.1rem;
+    max-width: 700px;
+    margin: 0 auto 30px;
+    opacity: 0.9;
+}
+
+/* Footer */
+footer {
+    background-color: var(--dark);
+    color: white;
+    padding: 60px 0 20px;
+}
+
+.copyright {
+    text-align: center;
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+    color: rgba(255, 255, 255, 0.7);
+    font-size: 0.9rem;
+}
+
+/* Animation Keyframes */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
+
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Responsive Styles */
+@media (max-width: 768px) {
+    .nav-links {
+        display: none;
+    }
+    
+    .hero h1 {
+        font-size: 2.5rem;
+    }
+    
+    .hero-buttons {
+        flex-direction: column;
+        align-items: center;
+    }
+    
+    .endpoint-tabs {
+        flex-direction: column;
+        align-items: center;
+    }
+    
+    .endpoint-tab {
+        width: 100%;
+        max-width: 300px;
+        text-align: center;
+    }
+    
+    .developer-card {
+        flex-direction: column;
+    }
+}
     </style>
+
 </head>
 <body>
-
-    <header>
-        <h1>The Reader - API Endpoints</h1>
-        <p>Access the API endpoints for managing PDFs and metadata</p>
-    </header>
-
-    <section>
-        <h2>API Endpoints for The Reader Android App</h2>
-        <p>Below is the list of available endpoints to interact with The Reader app's backend for PDF management:</p>
-    </section>
-
-    <section class="endpoints-container">
-        <!-- Endpoint 1: Read PDFs -->
-        <div class="endpoint-box">
-            <h3>READ - Get All PDFs</h3>
-            <p>Fetch a list of all PDFs uploaded in the system.</p>
-            <code>
-                GET https://flask-book-api-the-reader.onrender.com/pdfs
-            </code>
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="container nav-container">
+            <a href="#" class="logo">
+                <i class="fas fa-book-reader"></i>
+                The Reader API
+            </a>
+            <div class="nav-links">
+                <a href="#features">Features</a>
+                <a href="#endpoints">API Reference</a>
+                <a href="#stats">Stats</a>
+                <a href="#developer">Developer</a>
+            </div>
+            <!-- <button class="get-started">Get Started</button> -->
         </div>
-
-        <!-- Endpoint 2: Upload PDF -->
-        <div class="endpoint-box">
-            <h3>UPLOAD - Upload PDF</h3>
-            <p>Upload a new PDF along with metadata such as title, author, category, and thumbnail image.</p>
-            <code>
-                POST https://flask-book-api-the-reader.onrender.com/upload
-            </code>
-        </div>
-
-        <!-- Endpoint 3: Delete PDF -->
-        <div class="endpoint-box">
-            <h3>DELETE - Delete PDF</h3>
-            <p>Delete a PDF and its associated metadata by its ID.</p>
-            <code>
-                DELETE https://flask-book-api-the-reader.onrender.com/delete/{id}
-            </code>
-        </div>
-
-        <!-- Endpoint 4: Get PDF Metadata -->
-        <div class="endpoint-box">
-            <h3>GET - Get PDF Metadata</h3>
-            <p>Retrieve the metadata of a specific PDF by its ID.</p>
-            <code>
-                GET https://flask-book-api-the-reader.onrender.com/pdf/{id}
-            </code>
-        </div>
-
-        <!-- Endpoint 5: Update PDF Metadata -->
-        <div class="endpoint-box">
-            <h3>UPDATE - Update PDF Metadata</h3>
-            <p>Update the metadata (title, author, category, etc.) of an existing PDF.</p>
-            <code>
-                PUT https://flask-book-api-the-reader.onrender.com/update/{id}
-            </code>
-        </div>
-
-        <!-- Endpoint 6: Search PDFs -->
-        <div class="endpoint-box">
-            <h3>SEARCH - Search PDFs</h3>
-            <p>Search for PDFs by keywords in their metadata.</p>
-            <code>
-                GET https://flask-book-api-the-reader.onrender.com/search?q={query}
-            </code>
+    </nav>
+    
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="container hero-content">
+            <h1>Powerful PDF Management for Android Apps</h1>
+            <p>A comprehensive API system to upload, manage, and access books and documents with ease through our well-structured RESTful endpoints.</p>
+            <div class="hero-buttons">
+                <a href="https://flask-book-api-the-reader.onrender.com/api/pdfs" class="btn btn-primary">Explore API Endpoints</a>
+                <a href="https://github.com/sumonkumarbd/flask-book-api-the-reader" class="btn btn-outline">View on GitHub</a>
+            </div>
         </div>
     </section>
-
-    <section>
-        <h2>Developer Information</h2>
-        <p>Created for <strong>The Reader Android App</strong> by <strong>Sumon Kumar</strong></p>
-        <p>Follow the developer:</p>
-        <div class="social-links">
-            <a href="https://www.linkedin.com/in/sumonkmr/" target="_blank">LinkedIn</a>
+    
+    <div class="wave-separator"></div>
+    
+    <!-- Features Section -->
+    <section class="features" id="features">
+        <div class="container">
+            <div class="section-title">
+                <h2>Key Features</h2>
+                <p>Discover what makes The Reader API powerful and easy to use</p>
+            </div>
+            
+            <div class="features-grid">
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-cloud-upload-alt"></i>
+                    </div>
+                    <h3>Easy Upload</h3>
+                    <p>Upload PDFs with associated metadata including title, author, and custom categories.</p>
+                </div>
+                
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-search"></i>
+                    </div>
+                    <h3>Smart Search</h3>
+                    <p>Powerful search functionality to find PDFs by title, author, or category.</p>
+                </div>
+                
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-cogs"></i>
+                    </div>
+                    <h3>RESTful Design</h3>
+                    <p>Well-structured RESTful API that follows best practices for easy integration.</p>
+                </div>
+                
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-shield-alt"></i>
+                    </div>
+                    <h3>Secure Storage</h3>
+                    <p>Your documents are securely stored and managed with proper authentication.</p>
+                </div>
+                
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-sync-alt"></i>
+                    </div>
+                    <h3>Real-time Updates</h3>
+                    <p>Make changes to your PDFs and metadata with immediate synchronization.</p>
+                </div>
+                
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-mobile-alt"></i>
+                    </div>
+                    <h3>Mobile Optimized</h3>
+                    <p>Designed specifically for Android applications with optimized response formats.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- API Endpoints Section -->
+    <section class="endpoints" id="endpoints">
+        <div class="container">
+            <div class="section-title">
+                <h2>API Reference</h2>
+                <p>Comprehensive documentation of all available endpoints</p>
+            </div>
+            
+            <div class="endpoint-tabs">
+                <div class="endpoint-tab active" onclick="showEndpoint(0)">Get All PDFs</div>
+                <div class="endpoint-tab" onclick="showEndpoint(1)">Upload PDF</div>
+                <div class="endpoint-tab" onclick="showEndpoint(2)">Delete PDF</div>
+                <div class="endpoint-tab" onclick="showEndpoint(3)">Get PDF Metadata</div>
+                <div class="endpoint-tab" onclick="showEndpoint(4)">Update PDF Metadata</div>
+                <div class="endpoint-tab" onclick="showEndpoint(5)">Search PDFs</div>
+            </div>
+            
+            <div class="endpoint-content">
+                <!-- Get All PDFs -->
+                <div class="endpoint-item active">
+                    <div class="endpoint-header">
+                        <span class="method get">GET</span>
+                        <h3 class="endpoint-title">Get All PDFs</h3>
+                    </div>
+                    <p class="endpoint-description">Fetches a list of all PDFs uploaded in the system with their associated metadata.</p>
+                    
+                    <div class="endpoint-url">
+                        https://flask-book-api-the-reader.onrender.com/api/pdfs
+                        <button class="copy-btn" onclick="copyToClipboard(this)">Copy</button>
+                    </div>
+                    
+                    <div class="response-section">
+                        <h4>Response Format</h4>
+                        <div class="code-block">
+    [
+      {
+        "id": 1,
+        "title": "Python Crash Course",
+        "author": "Eric Matthes",
+        "category": "Programming",
+        "thumbnail": "path/to/thumbnail.jpg",
+        "file_name": "python_crash_course.pdf"
+      },
+      {
+        "id": 2,
+        "title": "Clean Code",
+        "author": "Robert C. Martin",
+        "category": "Programming",
+        "thumbnail": "path/to/thumbnail.jpg",
+        "file_name": "clean_code.pdf"
+      }
+    ]</div>
+                    </div>
+                    
+                    <div class="code-example">
+                        <h4>Sample Code (Android)</h4>
+                        <div class="code-block">
+    // Using Retrofit in Android
+    interface ReaderApiService {
+        @GET("api/pdfs")
+        suspend fun getAllPdfs(): List<PdfModel>
+    }
+    
+    // Example usage
+    val pdfs = readerApiService.getAllPdfs()</div>
+                    </div>
+                </div>
+                
+                <!-- Upload PDF -->
+                <div class="endpoint-item">
+                    <div class="endpoint-header">
+                        <span class="method post">POST</span>
+                        <h3 class="endpoint-title">Upload PDF</h3>
+                    </div>
+                    <p class="endpoint-description">Upload a new PDF along with metadata such as title, author, category, and thumbnail image.</p>
+                    
+                    <div class="endpoint-url">
+                        https://flask-book-api-the-reader.onrender.com/api/upload
+                        <button class="copy-btn" onclick="copyToClipboard(this)">Copy</button>
+                    </div>
+                    
+                    <div class="parameter-section">
+                        <h4>Parameters</h4>
+                        <table class="parameter-table">
+                            <thead>
+                                <tr>
+                                    <th>Parameter</th>
+                                    <th>Type</th>
+                                    <th>Required</th>
+                                    <th>Description</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>pdf_file</td>
+                                    <td>File</td>
+                                    <td>Yes</td>
+                                    <td>The PDF file to upload</td>
+                                </tr>
+                                <tr>
+                                    <td>title</td>
+                                    <td>String</td>
+                                    <td>Yes</td>
+                                    <td>Title of the PDF</td>
+                                </tr>
+                                <tr>
+                                    <td>author</td>
+                                    <td>String</td>
+                                    <td>Yes</td>
+                                    <td>Author of the PDF</td>
+                                </tr>
+                                <tr>
+                                    <td>category</td>
+                                    <td>String</td>
+                                    <td>Yes</td>
+                                    <td>Category of the PDF</td>
+                                </tr>
+                                <tr>
+                                    <td>thumbnail</td>
+                                    <td>File</td>
+                                    <td>No</td>
+                                    <td>Thumbnail image for the PDF</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    
+                    <div class="code-example">
+                        <h4>Sample Code (Android)</h4>
+                        <div class="code-block">
+    // Using Retrofit in Android with MultipartBody
+    interface ReaderApiService {
+        @Multipart
+        @POST("api/upload")
+        suspend fun uploadPdf(
+            @Part pdfFile: MultipartBody.Part,
+            @Part("title") title: RequestBody,
+            @Part("author") author: RequestBody,
+            @Part("category") category: RequestBody,
+            @Part thumbnail: MultipartBody.Part?
+        ): Response<UploadResponse>
+    }
+    
+    // Example usage
+    val pdfFile = File(pdfPath)
+    val pdfRequestBody = pdfFile.asRequestBody("application/pdf".toMediaTypeOrNull())
+    val pdfPart = MultipartBody.Part.createFormData("pdf_file", pdfFile.name, pdfRequestBody)
+    
+    val titleBody = "Clean Code".toRequestBody("text/plain".toMediaTypeOrNull())
+    val authorBody = "Robert C. Martin".toRequestBody("text/plain".toMediaTypeOrNull())
+    val categoryBody = "Programming".toRequestBody("text/plain".toMediaTypeOrNull())
+    
+    val response = readerApiService.uploadPdf(pdfPart, titleBody, authorBody, categoryBody, thumbnailPart)</div>
+                    </div>
+                </div>
+                
+                <!-- Delete PDF -->
+                <div class="endpoint-item">
+                    <div class="endpoint-header">
+                        <span class="method delete">DELETE</span>
+                        <h3 class="endpoint-title">Delete PDF</h3>
+                    </div>
+                    <p class="endpoint-description">Removes a PDF file and all associated metadata from the system.</p>
+                    
+                    <div class="endpoint-url">
+                        https://flask-book-api-the-reader.onrender.com/api/pdfs/{id}
+                        <button class="copy-btn" onclick="copyToClipboard(this)">Copy</button>
+                    </div>
+                    
+                    <div class="parameter-section">
+                        <h4>Parameters</h4>
+                        <table class="parameter-table">
+                            <thead>
+                                <tr>
+                                    <th>Parameter</th>
+                                    <th>Type</th>
+                                    <th>Required</th>
+                                    <th>Description</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>id</td>
+                                    <td>Integer</td>
+                                    <td>Yes</td>
+                                    <td>The ID of the PDF to delete</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    
+                    <div class="code-example">
+                        <h4>Sample Code (Android)</h4>
+                        <div class="code-block">
+    // Using Retrofit in Android
+    interface ReaderApiService {
+        @DELETE("api/pdfs/{id}")
+        suspend fun deletePdf(@Path("id") pdfId: Int): Response<DeleteResponse>
+    }
+    
+    // Example usage
+    val response = readerApiService.deletePdf(1)</div>
+                    </div>
+                </div>
+                
+                <!-- Get PDF Metadata -->
+                <div class="endpoint-item">
+                    <div class="endpoint-header">
+                        <span class="method get">GET</span>
+                        <h3 class="endpoint-title">Get PDF Metadata</h3>
+                    </div>
+                    <p class="endpoint-description">Retrieves detailed metadata for a specific PDF by its ID.</p>
+                    
+                    <div class="endpoint-url">
+                        https://flask-book-api-the-reader.onrender.com/api/pdfs/{id}
+                        <button class="copy-btn" onclick="copyToClipboard(this)">Copy</button>
+                    </div>
+                    
+                    <div class="parameter-section">
+                        <h4>Parameters</h4>
+                        <table class="parameter-table">
+                            <thead>
+                                <tr>
+                                    <th>Parameter</th>
+                                    <th>Type</th>
+                                    <th>Required</th>
+                                    <th>Description</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>id</td>
+                                    <td>Integer</td>
+                                    <td>Yes</td>
+                                    <td>The ID of the PDF to retrieve</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    
+                    <div class="response-section">
+                        <h4>Response Format</h4>
+                        <div class="code-block">
+    {
+      "id": 1,
+      "title": "Python Crash Course",
+      "author": "Eric Matthes",
+      "category": "Programming",
+      "thumbnail": "path/to/thumbnail.jpg",
+      "file_name": "python_crash_course.pdf",
+      "upload_date": "2025-04-10T14:32:21",
+      "file_size": 12345678,
+      "page_count": 562,
+      "download_url": "https://flask-book-api-the-reader.onrender.com/api/download/1"
+    }</div>
+                    </div>
+                    
+                    <div class="code-example">
+                        <h4>Sample Code (Android)</h4>
+                        <div class="code-block">
+    // Using Retrofit in Android
+    interface ReaderApiService {
+        @GET("api/pdfs/{id}")
+        suspend fun getPdfMetadata(@Path("id") pdfId: Int): PdfDetailModel
+    }
+    
+    // Example usage
+    val pdfDetails = readerApiService.getPdfMetadata(1)</div>
+                    </div>
+                </div>
+                
+                <!-- Update PDF Metadata -->
+                <div class="endpoint-item">
+                    <div class="endpoint-header">
+                        <span class="method put">PUT</span>
+                        <h3 class="endpoint-title">Update PDF Metadata</h3>
+                    </div>
+                    <p class="endpoint-description">Updates metadata for an existing PDF file without requiring a new file upload.</p>
+                    
+                    <div class="endpoint-url">
+                        https://flask-book-api-the-reader.onrender.com/api/pdfs/{id}
+                        <button class="copy-btn" onclick="copyToClipboard(this)">Copy</button>
+                    </div>
+                    
+                    <div class="parameter-section">
+                        <h4>Parameters</h4>
+                        <table class="parameter-table">
+                            <thead>
+                                <tr>
+                                    <th>Parameter</th>
+                                    <th>Type</th>
+                                    <th>Required</th>
+                                    <th>Description</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>id</td>
+                                    <td>Integer</td>
+                                    <td>Yes</td>
+                                    <td>The ID of the PDF to update</td>
+                                </tr>
+                                <tr>
+                                    <td>title</td>
+                                    <td>String</td>
+                                    <td>No</td>
+                                    <td>New title for the PDF</td>
+                                </tr>
+                                <tr>
+                                    <td>author</td>
+                                    <td>String</td>
+                                    <td>No</td>
+                                    <td>New author for the PDF</td>
+                                </tr>
+                                <tr>
+                                    <td>category</td>
+                                    <td>String</td>
+                                    <td>No</td>
+                                    <td>New category for the PDF</td>
+                                </tr>
+                                <tr>
+                                    <td>thumbnail</td>
+                                    <td>File</td>
+                                    <td>No</td>
+                                    <td>New thumbnail image for the PDF</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    
+                    <div class="code-example">
+                        <h4>Sample Code (Android)</h4>
+                        <div class="code-block">
+    // Using Retrofit in Android
+    interface ReaderApiService {
+        @Multipart
+        @PUT("api/pdfs/{id}")
+        suspend fun updatePdfMetadata(
+            @Path("id") pdfId: Int,
+            @Part("title") title: RequestBody?,
+            @Part("author") author: RequestBody?,
+            @Part("category") category: RequestBody?,
+            @Part thumbnail: MultipartBody.Part?
+        ): Response<UpdateResponse>
+    }
+    
+    // Example usage
+    val titleBody = "Updated Title".toRequestBody("text/plain".toMediaTypeOrNull())
+    val authorBody = "Updated Author".toRequestBody("text/plain".toMediaTypeOrNull())
+    
+    val response = readerApiService.updatePdfMetadata(1, titleBody, authorBody, null, null)</div>
+                    </div>
+                </div>
+                
+                <!-- Search PDFs -->
+                <div class="endpoint-item">
+                    <div class="endpoint-header">
+                        <span class="method get">GET</span>
+                        <h3 class="endpoint-title">Search PDFs</h3>
+                    </div>
+                    <p class="endpoint-description">Search for PDFs based on various criteria like title, author, or category.</p>
+                    
+                    <div class="endpoint-url">
+                        https://flask-book-api-the-reader.onrender.com/api/search
+                        <button class="copy-btn" onclick="copyToClipboard(this)">Copy</button>
+                    </div>
+                    
+                    <div class="parameter-section">
+                        <h4>Query Parameters</h4>
+                        <table class="parameter-table">
+                            <thead>
+                                <tr>
+                                    <th>Parameter</th>
+                                    <th>Type</th>
+                                    <th>Required</th>
+                                    <th>Description</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>q</td>
+                                    <td>String</td>
+                                    <td>No</td>
+                                    <td>General search term across all fields</td>
+                                </tr>
+                                <tr>
+                                    <td>title</td>
+                                    <td>String</td>
+                                    <td>No</td>
+                                    <td>Filter by title</td>
+                                </tr>
+                                <tr>
+                                    <td>author</td>
+                                    <td>String</td>
+                                    <td>No</td>
+                                    <td>Filter by author</td>
+                                </tr>
+                                <tr>
+                                    <td>category</td>
+                                    <td>String</td>
+                                    <td>No</td>
+                                    <td>Filter by category</td>
+                                </tr>
+                                <tr>
+                                    <td>limit</td>
+                                    <td>Integer</td>
+                                    <td>No</td>
+                                    <td>Number of results to return (default: 20)</td>
+                                </tr>
+                                <tr>
+                                    <td>offset</td>
+                                    <td>Integer</td>
+                                    <td>No</td>
+                                    <td>Number of results to skip (default: 0)</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    
+                    <div class="response-section">
+                        <h4>Response Format</h4>
+                        <div class="code-block">
+    {
+      "total": 42,
+      "limit": 20,
+      "offset": 0,
+      "results": [
+        {
+          "id": 1,
+          "title": "Python Crash Course",
+          "author": "Eric Matthes",
+          "category": "Programming",
+          "thumbnail": "path/to/thumbnail.jpg",
+          "file_name": "python_crash_course.pdf"
+        },
+        {
+          "id": 5,
+          "title": "Learning Python",
+          "author": "Mark Lutz",
+          "category": "Programming",
+          "thumbnail": "path/to/thumbnail.jpg",
+          "file_name": "learning_python.pdf"
+        }
+      ]
+    }</div>
+                    </div>
+                    
+                    <div class="code-example">
+                        <h4>Sample Code (Android)</h4>
+                        <div class="code-block">
+    // Using Retrofit in Android
+    interface ReaderApiService {
+        @GET("api/search")
+        suspend fun searchPdfs(
+            @Query("q") query: String? = null,
+            @Query("title") title: String? = null,
+            @Query("author") author: String? = null,
+            @Query("category") category: String? = null,
+            @Query("limit") limit: Int? = null,
+            @Query("offset") offset: Int? = null
+        ): SearchResponse
+    }
+    
+    // Example usage
+    val searchResults = readerApiService.searchPdfs(category = "Programming", limit = 10)</div>
+                    </div>
+                </div>
+            </div>
         </div>
     </section>
 
-    <footer>
-        <p>&copy; 2025 The Reader - PDF Management System. All Rights Reserved.</p>
+    <!-- Statistics Section -->
+    <!-- <section class="stats" id="stats">
+    <div class="container">
+        <div class="section-title">
+            <h2>The Reader API in Numbers</h2>
+            <p>Trusted by developers and users worldwide</p>
+        </div>
+        
+        <div class="stats-container">
+            <div class="stat-item">
+                <div class="stat-number">
+                    <i class="fas fa-download"></i>
+                    5,000+
+                </div>
+                <div class="stat-label">Downloads</div>
+            </div>
+            
+            <div class="stat-item">
+                <div class="stat-number">
+                    <i class="fas fa-users"></i>
+                    1,200+
+                </div>
+                <div class="stat-label">Active Users</div>
+            </div>
+            
+            <div class="stat-item">
+                <div class="stat-number">
+                    <i class="fas fa-file-pdf"></i>
+                    25,000+
+                </div>
+                <div class="stat-label">PDFs Managed</div>
+            </div>
+            
+            <div class="stat-item">
+                <div class="stat-number">
+                    <i class="fas fa-code-branch"></i>
+                    500+
+                </div>
+                <div class="stat-label">GitHub Stars</div>
+            </div>
+        </div>
+    </div>
+</section> -->
+
+
+    <!-- Developer Section -->
+<section class="developer" id="developer">
+    <div class="container">
+        <div class="section-title">
+            <h2>Meet the Developer</h2>
+            <p>The mind behind The Reader API</p>
+        </div>
+        
+        <div class="developer-card">
+            <div class="developer-header">
+                <div class="developer-img">
+                    <img src="https://github.com/sumonkumarbd.png" alt="Sumon Kumar">
+                </div>
+                <h3>Sumon Kumar</h3>
+                <p>Full Stack Developer</p>
+            </div>
+            
+            <div class="developer-body">
+                <p class="dev-bio">
+                    Passionate about creating robust APIs and backend solutions for mobile applications.
+                    Specialized in Flask, Python, and RESTful architecture with a focus on PDF management systems.
+                </p>
+                
+                <div class="social-links">
+                    <a href="mailto:sumonkmrofficial@gmail.com" class="social-link" title="Email">
+                        <i class="fas fa-envelope"></i>
+                    </a>
+                    <a href="https://discordapp.com/channels/1312688262241976370/1312688577272090624" class="social-link" title="Discord">
+                        <i class="fab fa-discord"></i>
+                    </a>
+                    <a href="https://github.com/sumonkumarbd/" class="social-link" title="GitHub">
+                        <i class="fab fa-github"></i>
+                    </a>
+                    <a href="https://www.linkedin.com/in/sumonkmr/" class="social-link" title="LinkedIn">
+                        <i class="fab fa-linkedin-in"></i>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+                function showEndpoint(index) {
+            // Hide all endpoint items
+            const endpointItems = document.querySelectorAll('.endpoint-item');
+            endpointItems.forEach(item => {
+                item.classList.remove('active');
+            });
+            
+            // Show the selected endpoint item
+            endpointItems[index].classList.add('active');
+            
+            // Update tab selection
+            const endpointTabs = document.querySelectorAll('.endpoint-tab');
+            endpointTabs.forEach(tab => {
+                tab.classList.remove('active');
+            });
+            endpointTabs[index].classList.add('active');
+        }
+        
+        function copyToClipboard(button) {
+            const text = button.previousSibling.textContent.trim();
+            navigator.clipboard.writeText(text).then(() => {
+                const originalText = button.textContent;
+                button.textContent = 'Copied!';
+                setTimeout(() => {
+                    button.textContent = originalText;
+                }, 2000);
+            });
+        }
+    </script>
+    </body>
+
+       <!-- Footer Section -->
+       <footer>       
+        <div class="copyright">
+            <p>&copy; 2025 The Reader API. All rights reserved. Designed and developed by <a href="https://github.com/sumonkumarbd/" style="color: var(--primary);">Sumon Kumar</a></p>
+        </div>
+    </div>
     </footer>
-
-</body>
-</html>
+    </html>
