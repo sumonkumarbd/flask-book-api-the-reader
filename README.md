@@ -84,13 +84,6 @@ Server will start at:
 
 ---
 
-## 🌐 Deployed URL
-
-**Live Root Endpoint**:  
-[https://flask-book-api-the-reader.onrender.com](https://flask-book-api-the-reader.onrender.com)
-
----
-
 ## 📬 API Endpoints
 
 | Method   | Endpoint                                              | Description                         |
@@ -130,6 +123,19 @@ When uploading a file, make sure to send metadata as `form-data`:
 - `category`: (string)  
 - `pdf_file`: (file)  
 - `thumbnail`: (file)
+
+---
+
+## Notice
+
+This project is **no longer live** or maintained.
+
+### The system has been replaced by a new, more scalable, and feature-rich version:
+
+👉 [The-Reader-eBook-API-Django](https://github.com/sumonkumarbd/The-Reader-eBook-API-Django)
+
+The new repository offers improved scalability and many additional features.  
+Please use the new project for the latest updates and development!
 
 ---
 
